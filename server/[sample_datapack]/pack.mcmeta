@@ -1,0 +1,6 @@
+{
+  "pack": {
+    "description": "Some datapack that adds more ServerNet messages.",
+    "pack_format": 15
+  }
+}
