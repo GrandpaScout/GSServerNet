@@ -6,7 +6,7 @@
 -- │ └─┐ └─────┘└─────┘ ┌─┘ │ --
 -- └───┘                └───┘ --
 ---@module  "ServerNet Library" <GSServerNet>
----@version v1.0.0
+---@version v1.1.1
 ---@see     GrandpaScout @ https://github.com/GrandpaScout
 -- Allows communication between the server and a Figura user.
 -- ServerNet clients can receive messages containing any amount of values from the server
@@ -31,7 +31,7 @@
 --]] =======================================================================
 
 local ID = "GSServerNet"
-local VER = "1.1.0"
+local VER = "1.1.1"
 local FIG = {"0.1.2", "0.1.2"}
 
 local PROTOCOL = 1
@@ -867,7 +867,7 @@ if HOST then
 
     -- If `_start_` is timing out, don't let it error from that.
     local start = trigger_queue[1]
-    if start.name == "_start_" then start.timeout_action = true end
+    if start and start.name == "_start_" then start.timeout_action = true end
 
     local reg_send = this.registry.send
     for _, name in ipairs(send) do
