@@ -1,4 +1,4 @@
-##### Looking for the ServerNet Client for Figura Avatars? Check out the `client` folder instead.
+##### Looking for the ServerNet Client for Figura Avatars? Check out the [`client`](../client/) directory instead.
 
 # GSServerNet Server
 This folder contains the **GSServerNet** datapack for use on servers.  

@@ -6,7 +6,7 @@
 -- │ └─┐ └─────┘└─────┘ ┌─┘ │ --
 -- └───┘                └───┘ --
 ---@module  "ServerNet Library" <GSServerNet>
----@version v1.1.1
+---@version v1.1.2
 ---@see     GrandpaScout @ https://github.com/GrandpaScout
 -- Allows communication between the server and a Figura user.
 -- ServerNet clients can receive messages containing any amount of values from the server
@@ -818,6 +818,7 @@ if HOST then
     name = "_start_",
     resolved = false,
     time = world.getTime(),
+    timeout_action = false,
     success = function()
       -- Report success to all awaiting functions.
       server_responded = true

@@ -1,7 +1,9 @@
-##### Looking for the ServerNet Server for Minecraft Servers? Check out the `server` folder instead.
+##### Looking for the ServerNet Server for Minecraft Servers? Check out the [`server`](../server/) directory instead.
 
 # GSServerNet Client
 This folder contains the **GSServerNet** script for use on Figura Avatars.
+
+### NOTICE: This library requires the `Chat Messages` setting in Figura to be *enabled* for it to work.
 
 ## Quick Snippets
 

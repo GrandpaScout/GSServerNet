@@ -3,7 +3,7 @@
     "description": [
       {"text": "", "color": "#6A9955"},
       {"text": "@module  ", "color": "#569CD6"}, {"text": "\"Figura ServerNet Datapack\" ", "color": "#CE9178"}, "<GSServerNet>\n",
-      {"text": "@version ", "color": "#569CD6"}, {"text": "v1.0.0\n", "color": "#4FC1FF"},
+      {"text": "@version ", "color": "#569CD6"}, {"text": "v1.1.0\n", "color": "#4FC1FF"},
       {"text": "@see      ", "color": "#569CD6"}, {"text": "GrandpaScout ", "color": "#4EC9B0"}, "@ ", {"text": "https://github.com/GrandpaScout", "underlined": true}, "\n",
       "The server-side for Figura ServerNet.\n",
       "Allows communication between the server and a Figura user.\n",
