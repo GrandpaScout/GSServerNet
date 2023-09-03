@@ -313,11 +313,15 @@ for _, func in ipairs(functions) do
       )
 
       file = io.open(path .. n .. ".mcfunction", "w")
+      if not file then error("Failed to open file '" .. (path .. n .. ".mcfunction") ..  "'") end
       file:write(content:format(nf, nf, nf, nf, nf, nf, nf, nf, nf))
       file:close()
     end
 
     file = io.open("build_out/scale/select_" .. name .. ".mcfunction", "w")
+    if not file then
+      error("Failed to open file '" .. ("build_out/scale/select_" .. name .. ".mcfunction") ..  "'")
+    end
     file:write(file_select:format(
       name, name,
       table.concat(select_chunks, "\n")
@@ -338,6 +342,9 @@ for _, func in ipairs(functions) do
     end
 
     file = io.open("build_out/scale/select_" .. name .. ".mcfunction", "w")
+    if not file then
+      error("Failed to open file '" .. ("build_out/scale/select_" .. name .. ".mcfunction") ..  "'")
+    end
     file:write(file_select:format(
       name, name,
       table.concat(select_chunks, "\n")
@@ -347,6 +354,7 @@ for _, func in ipairs(functions) do
 end
 
 file = io.open("build_out/register.mcfunction", "w")
+if not file then error("Failed to open file 'build_out/register.mcfunction'") end
 file:write(file_register:format(
   table.concat(define_chunks, "\n"),
   table.concat(registry_chunks, "\n"),
@@ -356,10 +364,12 @@ file:write(file_register:format(
 file:close()
 
 file = io.open("build_out/tick.mcfunction", "w")
+if not file then error("Failed to open file 'build_out/tick.mcfunction'") end
 file:write(file_tick:format(table.concat(tick_chunks, "\n\n")))
 file:close()
 
 file = io.open("build_out/scale/reset.mcfunction", "w")
+if not file then error("Failed to open file 'build_out/scale/reset.mcfunction'") end
 file:write([[
 scale persist reset @s
 scale reset @s

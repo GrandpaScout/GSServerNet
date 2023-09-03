@@ -42,7 +42,7 @@ The structure of your datapack should look like the following:
 ## Do Something When a New Client Connects
 Create a function and add it to the start tag.  
 Open `data/svnet/tags/functions/start.json` and put this in the file:
-```json
+```jsonc
 {
   "values": [
     "your_namespace:your_function",
@@ -63,14 +63,14 @@ messages your server will send to them and what messages they are allowed to sen
 
 One extra thing you should do before you start registering messages is to first add the name of your module to the
 module list. This allows clients to know what modules are installed on the server!
-```ps1
+```mcfunction
 # Add your module to the list of modules.
 #
 # Replace `ModuleName` with the name of your module!
 
 data modify storage svnet:registry modules append value "ModuleName"
 ```
-```ps1
+```mcfunction
 # Create a new message name for a message that will be sent to clients.
 # Note that *receive* is for messages *received* by the client.
 #
@@ -78,7 +78,7 @@ data modify storage svnet:registry modules append value "ModuleName"
 
 data modify storage svnet:registry receive append value "message_name"
 ```
-```ps1
+```mcfunction
 # Create a new message name for a message that will be sent to the server.
 # Note that *send* is for messages *sent* by the client.
 #
@@ -91,7 +91,7 @@ A message name can be both received and sent. They will not conflict.
 
 Once you have created a registry function, you will need to add it to the register tag.  
 Open `data/svnet/tags/functions/register.json` and put this in the file:
-```json
+```jsonc
 {
   "values": [
     "your_namespace:your_function",
@@ -126,7 +126,7 @@ Multiple ServerNet messages may be contained in one tellraw message as long as t
 above.
 
 Examples of valid ServerNet messages:
-```json
+```jsonc
 // This is the only content of the tellraw message and it does not print anything, so it is fine.
 {"text": "", "font": "svnet:message_name"}
 
@@ -141,7 +141,7 @@ Examples of valid ServerNet messages:
 ```
 
 Examples of *invalid* ServerNet messages:
-```json
+```jsonc
 // This will cause the ServerNet message to print actual text, which is not allowed.
 {"text": "Hi!", "font": "svnet:message_name"}
 
@@ -156,7 +156,7 @@ Examples of *invalid* ServerNet messages:
 ### Simple Messages
 To create a simple message, use the following [Raw JSON Text](https://minecraft.fandom.com/wiki/Raw_JSON_text_format) as
 a base.
-```json
+```jsonc
 {"text": "", "font": "svnet:message_name/param1/param2/paramN"}
 ```
 `"text"` *must* be empty. `"font"` is the message name and the parameters to send through the message.
@@ -167,7 +167,7 @@ The parameters will send different types of values depending on what they contai
 * If a parameter is either `nil`, `null`, or completely empty, a `nil` will be sent.
 * If a parameter starts with `.`, the dot will be removed and the parameter will always be sent as a string.
 #### An example of a simple message:
-```json
+```jsonc
 {
   "text": "",
   "font": "svnet:my_message/abc//123/./.3/-5.2/.."
@@ -180,7 +180,7 @@ This will send `"abc"`, `nil`, `123`, `""`, `"3"`, `-5.2`, and `"."` over the `m
 ### Standard Messages
 To create a standard message, use the following [Raw JSON Text](https://minecraft.fandom.com/wiki/Raw_JSON_text_format)
 as a base.
-```json
+```jsonc
 {"translate": "", "font": "svnet:message_name", "with": [param1, param2, paramN]}
 ```
 `"translate"` *must* be empty. `"text"` and `"fallback"` must not exist.  
@@ -201,14 +201,14 @@ The parameters are a bit more complex with this method.
 > * If the parameter starts with `.`, the dot will be removed and the parameter will always be sent as a string.
 >
 > Some examples of string parameters and what they return:
-> ```json
+> ```jsonc
 > "foobar" -> "foobar"
 > "13.7"   -> 13.7
 > "null"   -> nil
 > ".33"    -> "33"
 > ```
 #### An example using some string parameters:
-```json
+```jsonc
 {
   "translate": "",
   "font": "svnet:my_message",
@@ -230,14 +230,14 @@ This will send `"hello"`, `"world"`, `12.3`, `nil`, and `"5"` over the `my_messa
 > * If the parameter starts with `.`, the dot will be removed and the parameter will always be sent as a string.
 >
 > Some examples of standard parameters and what they return:
-> ```json
+> ```jsonc
 > {"text": "foobar"}   ·   ·   ·   ·   ·   ·   ·   -> "foobar"
 > {"translate": "invalid.key", "fallback": "13.7"} -> 13.7
 > {"text": ""} ·   ·   ·   ·   ·   ·   ·   ·   ·   -> nil
 > {"keybind": "key.inventory"} ·   ·   ·   ·   ·   -> "E"
 > ```
 #### An example using some standard parameters:
-```json
+```jsonc
 {
   "translate": "",
   "font": "svnet:my_message",
@@ -261,7 +261,7 @@ This will send `"foo"`, `"Space"`, and `7` over the `my_message` message.
 >
 > * ### `svnet:nil`
 >   Simply sends a `nil` value, no matter the text of the parameter.
->   ```json
+>   ```jsonc
 >   {"font": "svnet:nil", "text": ""}    ·   ·   ·   -> nil
 >   {"font": "svnet:nil", "text": "not nil i swear"} -> nil
 >   ```
@@ -271,7 +271,7 @@ This will send `"foo"`, `"Space"`, and `7` over the `my_message` message.
 >   If the text contained in the parameter is empty, `false`, `nil`, `null`, or can be converted into the number `0`,
 >   `false` will be sent.  
 >   `true` is sent for everything else.
->   ```json
+>   ```jsonc
 >   {"font": "svnet:boolean", "text": "true"}  -> true
 >   {"font": "svnet:boolean", "text": "1.3"}   -> true
 >   {"font": "svnet:boolean", "text": "Words"} -> true
@@ -284,7 +284,7 @@ This will send `"foo"`, `"Space"`, and `7` over the `my_message` message.
 >   Sends a number value depending on the text of the parameter.  
 >   If the text in the parameter cannot be converted into a number, `NaN` is sent instead.  
 >   The two exceptions are `true` and `false` which become `1` and `0` respectively.
->   ```json
+>   ```jsonc
 >   {"font": "svnet:number", "text": "123"}    -> 123
 >   {"font": "svnet:number", "text": "-4.6"}   -> -4.6
 >   {"font": "svnet:number", "text": ".2"} ·   -> 0.2
@@ -298,7 +298,7 @@ This will send `"foo"`, `"Space"`, and `7` over the `my_message` message.
 >   &nbsp;
 > * ### `svnet:string`
 >   Sends a string value containing the literal text of the parameter.
->   ```json
+>   ```jsonc
 >   {"font": "svnet:string", "text": "Foobar"} -> "Foobar"
 >   {"font": "svnet:string", "text": "123"}    -> "123"
 >   {"font": "svnet:string", "text": "false"}  -> "false"
@@ -313,10 +313,10 @@ This will send `"foo"`, `"Space"`, and `7` over the `my_message` message.
 >   &nbsp;  
 >   *(Due to how long these values can get, any containing `"text": ""` have it removed. It is still there, just
 >   hidden.)*
->   ```json
+>   ```jsonc
 >   {"font": "svnet:array", "extra": ["hello", "world"]} ·   ·   ·   ·   ·   ·   ·   ·   -> {"hello", "world"}
 >   {"font": "svnet:array", "extra": ["12.3", "", "x"]}  ·   ·   ·   ·   ·   ·   ·   ·   -> {12.3, nil, "x"}
->   {"font": "svnet:array", "extra": [{"text": "true", "font": "svnet:boolean"}, "str"]} -> {true, "str"}
+>   {"font": "svnet:array", "extra": [{"text": "yes", "font": "svnet:boolean"}, "str"]}  -> {true, "str"}
 >   {"font": "svnet:array", "text": "just", "extra": ["some", "string"]} ·   ·   ·   ·   -> {"just", "some", "string"}
 >   ```
 >   &nbsp;
@@ -329,7 +329,7 @@ This will send `"foo"`, `"Space"`, and `7` over the `my_message` message.
 >   &nbsp;  
 >   *(Due to how long these values can get, the `"text": ""` has been removed from all of them. It is still there, just
 >   hidden.)*
->   ```json
+>   ```jsonc
 >   {"font": "svnet:keyvalue", "extra": ["hello", "world"]} ·   ·   ·   ·   ·   ·   ·   -> {["hello"] = "world"}
 >   {"font": "svnet:keyvalue", "extra": ["12.3", "x", "foo", "bar"]}    ·   ·   ·   ·   -> {[12.3] = "x", ["foo"] = "bar"}
 >   {"font": "svnet:keyvalue", "extra": [{"text": "", "font": "svnet:nil"}, "a_value"]} -> {}
@@ -350,7 +350,7 @@ This will send `"foo"`, `"Space"`, and `7` over the `my_message` message.
 >   &nbsp;  
 >   *(Due to how long these values can get, any containing `"text": ""` have it removed. It is still there, just
 >   hidden.)*
->   ```json
+>   ```jsonc
 >   {"font": "svnet:vector", "extra": ["1", "3.3", "-1.3"]}   ·   ·   ·   ·   ·   ·   -> vec(1, 3.3, -1.3)
 >   {"font": "svnet:vector", "extra": ["12.3", "", "x"]}  ·   ·   ·   ·   ·   ·   ·   -> vec(12.3, NaN, NaN)
 >   {"font": "svnet:vector", "text": "12", "extra": ["34", "56", "78"]}   ·   ·   ·   -> vec(12, 34, 56, 78)
@@ -365,14 +365,14 @@ This will send `"foo"`, `"Space"`, and `7` over the `my_message` message.
 >   itself. If no entities are found, a `nil` is sent.  
 >   If an entity sent by this parameter is not in the client's render distance, it is instead send as a string UUID for
 >   the client to use to get the entity later.
->   ```json
+>   ```jsonc
 >   {"font": "svnet:selector", "selector": "@e[type=creeper]"}        -> {Creeper, Creeper, Creeper, ...}
 >   {"font": "svnet:selector", "selector": "@e[type=zombie,limit=1]"} -> Zombie
 >   {"font": "svnet:selector", "selector": "@r"}                      -> Player
 >   {"font": "svnet:selector", "selector": "@e[type=doesnt_exist]"}   -> nil
 >   ```
 #### An example using some advanced parameters:
-```json
+```jsonc
 {
   "translate": "",
   "font": "svnet:my_message",
@@ -390,7 +390,7 @@ This will send `true`, `4`, and `{"foo", "bar", 42}` over the `my_message` messa
 To receive a ServerNet message, keep track of the `svnet.message_name` scores for changes.
 
 A simple system for keeping track of a `svnet` score is given below:
-```ps1
+```mcfunction
 # First, check for players that changed the value.
 execute as @a[scores={svnet.message_name=1..}] run <command>
 
@@ -402,7 +402,7 @@ This is not the only way to detect a ServerNet message, this is only an example.
 
 To disable a ServerNet message from being sent to the server, use `reset` on it until you wish to allow it to be sent
 again
-```ps1
+```mcfunction
 # Disable the message
 scoreboard players reset @a svnet.message_name
 
@@ -416,7 +416,7 @@ A good time to watch for changes is during the ServerNet tick. This happens righ
 means that the score `svnet_connected` will be `1` on players currently connected to ServerNet.
 
 To add functions to the ServerNet tick tag, open `data/svnet/tags/functions/tick.json` and put this in the file:
-```json
+```jsonc
 {
   "values": [
     "your_namespace:your_function",
@@ -432,7 +432,7 @@ This will add the listed functions as tick functions and will run a ServerNet ti
 # Quick Recaps
 ## How To: Add Messages to the Registry [↩](#add-new-messages-to-the-registry "Go to main section")
 `data/<your_namespace>/functions/your_function.mcfunction`
-```ps1
+```mcfunction
 # Server-to-client message
 data modify storage svnet:registry receive append value "message_name"
 
@@ -442,7 +442,7 @@ data modify storage svnet:registry send append value "message_name"
 ```
 &nbsp;  
 `data/svnet/tags/functions/register.json`
-```ps1
+```jsonc
 {
   "values": [
     "<your_namespace>:your_function.mcfunction"
@@ -454,13 +454,13 @@ data modify storage svnet:registry send append value "message_name"
 
 ## How To: Run a Function When a New Client Connects [↩](#do-something-when-a-new-client-connects "Go to main section")
 `data/<your_namespace>/functions/your_function.mcfunction`
-```ps1
+```mcfunction
 # @s is the new client.
 <commands>
 ```
 &nbsp;  
 `data/svnet/tags/functions/start.json`
-```ps1
+```jsonc
 {
   "values": [
     "<your_namespace>:your_function.mcfunction"
@@ -471,7 +471,7 @@ data modify storage svnet:registry send append value "message_name"
 
 ## How To: Send a Message to Clients [↩](#create-messages-for-clients-to-receive "Go to main section")
 ### Simple Message [↩](#simple-messages "Go to main section")
-```json
+```mcfunction
 # Send an empty chat message containing a simple ServerNet message.
 tellraw TARGET {"text": "", "font": "svnet:message_name/param1/param2/paramN"}
 
@@ -480,7 +480,7 @@ tellraw TARGET ["Some Text", {"text": "", "font": "svnet:message_name/param1/par
 ```
 
 ### Standard Message [↩](#standard-messages "Go to main section")
-```json
+```mcfunction
 # Send an empty chat message containing a standard ServerNet message.
 tellraw TARGET {"translate": "", "font": "svnet:message_name", "with": [param1, param2, paramN]}
 
@@ -492,14 +492,14 @@ tellraw TARGET ["Some Text", {"translate": "", "font": "svnet:message_name", "wi
 
 ## How To: Receive a Message from Clients [↩](#get-messages-sent-by-clients "Go to main section")
 `data/<your_namespace>/functions/your_function.mcfunction`
-```ps1
+```mcfunction
 execute as @a[scores={svnet.message_name=1..}] run <command>
 scoreboard players set @a svnet.message_name 0
 scoreboard players enable @a svnet.message_name
 ```
 &nbsp;  
 `data/svnet/tags/functions/tick.json`
-```ps1
+```jsonc
 {
   "values": [
     "<your_namespace>:your_function.mcfunction"

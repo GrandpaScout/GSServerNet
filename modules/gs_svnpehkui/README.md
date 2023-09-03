@@ -63,8 +63,7 @@ A list of messages and the scales they modify are given below:
 ## Server
 Simply install the datapack next to the `GSServerNet` datapack.
 
-There are soft limits and hard limits for scales in this datapack. They can be changed by the server owner if
-needed.  
+There are soft limits and hard limits for scales in this datapack. They can be changed by the server owner if needed.  
 &nbsp;
 ### To change the soft limits:
 Use the following commands in-game to set the minimum and maximum scales that players can use:

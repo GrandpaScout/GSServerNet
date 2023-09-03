@@ -341,7 +341,7 @@ This will send "foo", "Space", and 7 over the "my_message" message.
        | 
        | {"font": "svnet:array", "extra": ["12.3", "", "x"]} -> {12.3, nil, "x"}
        | 
-       | {"font": "svnet:array", "extra": [{"text": "true", "font": "svnet:boolean"}, "str"]} -> {true, "str"}
+       | {"font": "svnet:array", "extra": [{"text": "yes", "font": "svnet:boolean"}, "str"]} -> {true, "str"}
        | 
        | {"font": "svnet:array", "text": "just", "extra": ["some", "string"]} -> {"just", "some", "string"}
        +~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
