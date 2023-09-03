@@ -1,3 +1,5 @@
+data modify storage svnet:registry modules append value "MyModule"
+
 data modify storage svnet:registry receive append value "nearest_ent"
 
 scoreboard objectives add svnet.rocketjump trigger "[ServerNet] Rocket Jump"

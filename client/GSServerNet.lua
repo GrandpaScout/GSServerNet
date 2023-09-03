@@ -6,7 +6,7 @@
 -- │ └─┐ └─────┘└─────┘ ┌─┘ │ --
 -- └───┘                └───┘ --
 ---@module  "ServerNet Library" <GSServerNet>
----@version v1.1.2
+---@version v1.2.0
 ---@see     GrandpaScout @ https://github.com/GrandpaScout
 -- Allows communication between the server and a Figura user.
 -- ServerNet clients can receive messages containing any amount of values from the server
@@ -31,10 +31,10 @@
 --]] =======================================================================
 
 local ID = "GSServerNet"
-local VER = "1.1.2"
+local VER = "1.2.0"
 local FIG = {"0.1.2", "0.1.2"}
 
-local PROTOCOL = 1
+local PROTOCOL = 2
 
 
 ---===|| LOCALS ||===================================================================================================---
@@ -97,25 +97,28 @@ local FULL_PATH = PATH ~= "" and (PATH .. "." .. FILE) or FILE
 ---This library's version.
 ---@field _VERSION string
 local this = {
-  ---Contains the names of messages that the server defines.
+  ---Contains values that the ServerNet server defines.
   ---
   ---Messages that the client (the Figura avatar) receives from the server are defined in `.receive`.  
-  ---Messages that the client can send to the server are defined in `.send`.
-  registry = {
-    ---Contains the names of messages that the client receives from the server.
-    ---
-    ---Indexing by a number will return the name of the message at that index.  
-    ---Indexing with the name of a message will return `true` if it exists.
-    ---@type {[number]: string, [string]: true}
-    receive = {},
-
-    ---Contains the names of messages the client can send to the server.
-    ---
-    ---Indexing by a number will return the name of the message at that index.  
-    ---Indexing with the name of a message will return `true` if it exists.
-    ---@type {[number]: string, [string]: true}
-    send = {}
-  },
+  ---Messages that the client can send to the server are defined in `.send`.  
+  ---Modules that the server has installed are defined in `.modules`.
+  ---@class Lib.GS.ServerNet.registry
+  ---Contains the names of messages that the client receives from the server.
+  ---
+  ---Indexing by a number will return the name of the message at that index.  
+  ---Indexing with the name of a message will return `true` if it exists.
+  ---@field receive {[number]: string, [string]: true}
+  ---Contains the names of messages the client can send to the server.
+  ---
+  ---Indexing by a number will return the name of the message at that index.  
+  ---Indexing with the name of a message will return `true` if it exists.
+  ---@field send {[number]: string, [string]: true}
+  ---Contains the names of modules installed on the server-side.
+  ---
+  ---Indexing by a number will return the name of the module at that index.  
+  ---Indexing with the name of a module will return `true` if it exists.
+  ---@field modules {[number]: string, [string]: true}
+  registry = {receive = {}, send = {}, modules = {}},
 
   ---Enable logging of svnet messages.
   ---
@@ -248,7 +251,7 @@ end
 ---This will cause the callbacks put in this function to run before the callbacks put into `.await()` run.
 ---
 ---If the server does not accept svnet messages, the function will be given `false`.
----@param func fun(registry: {receive: {[number]: string, [string]: true}, send: {[number]: string, [string]: true}} | false)
+---@param func fun(registry: Lib.GS.ServerNet.registry | false)
 function this.awaitRegistry(func)
   if not HOST then return end
   if type(func) ~= "function" then
@@ -850,8 +853,13 @@ if HOST then
   ---@param version number
   ---@param receive string[]
   ---@param send string[]
-  net_receivers._registry_ = function(_, version, receive, send)
-    if type(version) == "table" then version, receive, send = 0, version, receive end
+  ---@param modules string[]
+  net_receivers._registry_ = function(_, version, receive, send, modules)
+    if type(version) == "table" then -- PROTOCOL 0 compat
+      version, receive, send, modules = 0, version, receive, {"base"}
+    elseif not modules then -- PROTOCOL 1 compat
+      modules = {"base"}
+    end
     if type(receive) ~= "table" or type(send) ~= "table" then return end
     local not_found = {}
 
@@ -869,6 +877,14 @@ if HOST then
     -- If `_start_` is timing out, don't let it error from that.
     local start = trigger_queue[1]
     if start and start.name == "_start_" then start.timeout_action = true end
+
+    local reg_modules = this.registry.modules
+    for _, name in ipairs(modules) do
+      if type(name) == "string" then
+        insert(reg_modules, name)
+        reg_modules[name] = true
+      end
+    end
 
     local reg_send = this.registry.send
     for _, name in ipairs(send) do

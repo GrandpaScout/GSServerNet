@@ -1,5 +1,5 @@
 @module  "Figura ServerNet Datapack" <gs_svnet>
-@version v1.1.0
+@version v1.2.0
 @see     GrandpaScout @ https://github.com/GrandpaScout
 
 Allows communication between the server and a Figura user.
@@ -59,6 +59,15 @@ ADD NEW MESSAGES TO THE REGISTRY
 The first step is to add message names to the registry. This allows clients connecting through ServerNet to know what
 messages your server will send to them and what messages they are allowed to send to your server.
 
+One extra thing you should do before you start registering messages is to first add the name of your module to the
+module list. This allows clients to know what modules are installed on the server!
++~~[.mcfunction]~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+| # Add your module to the list of modules.
+| #
+| # Replace `ModuleName` with the name of your module!
+| 
+| data modify storage svnet:registry modules append value "ModuleName"
++~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 +~~[.mcfunction]~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 | # Create a new message name for a message that will be sent to clients.
 | # Note that *receive* is for messages *received* by the client.

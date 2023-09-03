@@ -1,6 +1,8 @@
 {
   "folders": [
-    {"path": "."}
+    {"path": "."},
+    {"path": "./server/GSServerNet", "name": "[Datapack] GSServerNet"},
+    {"path": "./modules/gs_svnpehkui/server/SvN_Pehkui", "name": "[Module] SvNPehkui"}
   ],
   "settings": {
     "json.schemas": [

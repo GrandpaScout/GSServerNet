@@ -25,13 +25,16 @@ scoreboard objectives add svnet_heartbeat dummy "[ServerNet] Connection Heartbea
 scoreboard objectives add svnet._start_ trigger "[ServerNet] New User Connected"
 
 # Sets the protocol version.
-data modify storage svnet:registry protocol set value 1
+data modify storage svnet:registry protocol set value 2
 
 # Creates the receiver registry.
 data modify storage svnet:registry receive set value []
 
 # Creates the sender registry.
 data modify storage svnet:registry send set value []
+
+# Creates the module registry.
+data modify storage svnet:registry modules set value ["base"]
 
 
 # Run all register functions.

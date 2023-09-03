@@ -13,3 +13,5 @@ To install the server, open the `server` folder and copy the `GSServerNet` folde
 folder.  
 Enable it like any other datapack and follow the instructions in the [server README](./server/) to set it up with your
 server.
+
+Instructions for installing ServerNet modules is given in the [`modules`](./modules/) directory.

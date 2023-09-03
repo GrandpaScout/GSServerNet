@@ -12,7 +12,7 @@
 scoreboard players set @s svnet_connected 1
 
 # Send the registry to new clients.
-tellraw @s {"translate":"","font":"svnet:_registry_","with":[{"font":"svnet:number","storage":"svnet:registry","nbt":"protocol"},{"font":"svnet:array","storage":"svnet:registry","nbt":"receive","interpret":true},{"font":"svnet:array","storage":"svnet:registry","nbt":"send","interpret":true}]}
+tellraw @s {"translate":"","font":"svnet:_registry_","with":[{"font":"svnet:number","storage":"svnet:registry","nbt":"protocol"},{"font":"svnet:array","storage":"svnet:registry","nbt":"receive","interpret":true},{"font":"svnet:array","storage":"svnet:registry","nbt":"send","interpret":true},{"font":"svnet:array","storage":"svnet:registry","nbt":"modules","interpret":true}]}
 
 # Run all start functions.
 function #svnet:start
