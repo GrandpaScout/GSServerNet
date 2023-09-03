@@ -9,6 +9,8 @@ you want to use for that scale.
 -- Sets the physics scale of the avatar to 150%
 SVNet.send("peh_phys", 150)
 ```
+When a scale message is sent, all of your scales are automatically pesisted. If you wish to remove persistence on your
+scales, you will need to `peh_reset` them.
 
 If the size you requested is not in range, you will get the closest size that is in range.  
 (Ex. Max size on the server is 250%, you request 300%, you get 250%)
@@ -22,6 +24,10 @@ If the size you requested is not in the interval, it will be rounded down to the
 > hitbox scale will follow `peh_phys` while the hitbox scale will follow `peh_bbox`.
 
 A list of messages and the scales they modify are given below:
+* **`peh_reset`**  
+  > *Resets and removes persistence from the listed scales.*  
+  > `pehkui:model_width`, `pehkui:model_height`, `pehkui:hitbox_width`, `pehkui:hitbox_height`, `pehkui:eye_height`,
+  > `pehkui:motion`, `pehkui:reach`, `pehkui:projectiles`, `pehkui:drops`
 * **`peh_all`**  
   > `pehkui:model_width`, `pehkui:model_height`, `pehkui:hitbox_width`, `pehkui:hitbox_height`, `pehkui:eye_height`,
   > `pehkui:motion`, `pehkui:reach`, `pehkui:projectiles`, `pehkui:drops`
