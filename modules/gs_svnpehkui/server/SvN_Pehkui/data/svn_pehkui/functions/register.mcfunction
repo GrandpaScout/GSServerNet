@@ -23,6 +23,9 @@
 #define score_holder #max Contains the maximum scale limit
 
 
+data modify storage svnet:registry modules append value "SvNPehkui"
+
+
 data modify storage svnet:registry send append value "peh_reset"
 
 data modify storage svnet:registry send append value "peh_all"
