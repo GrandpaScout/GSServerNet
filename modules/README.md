@@ -26,19 +26,24 @@ Make sure to enable the datapack with the `/datapack enable` command in-game.
 
 
 ## Module Details
-[>1]: ./gs_svnpehkui
+[/1]: ./gs_svnpehkui
+
+[>1]: https://github.com/Sindercube/The-Theatre/tree/main/clothier
 
 [@1]: https://github.com/GrandpaScout
+[@2]: https://github.com/Sindercube
 
+<!-- A reminder that "Received Messages" are messages that the *client* receives from the server. -->
+<!-- "Sent Messages" are messages that the *client* sends to the server. -->
 
 ### Modules in This Directory
 
-| Module          | Author             | Description                                                 | Sent Messages | Received Messages |
+| Module          | Author             | Description                                                 | Received Messages | Sent Messages |
 |:----------------|:-------------------|:------------------------------------------------------------|:--------------|:------------------|
-| [SVNPehkui][>1] | [GrandpaScout][@1] | Allows Figura avatars to request a custom size with Pehkui. | `peh_reset` `peh_all` `peh_all_w` `peh_all_h` `peh_mdl` `peh_mdl_w` `peh_mdl_h` `peh_phys` `peh_phys_w` `peh_phys_h` `peh_bbox` `peh_bbox_w` `peh_bbox_h` `peh_eye_h` `peh_motion` `peh_reach` `peh_proj` `peh_drops` |                   |
+| [SVNPehkui][/1] | [GrandpaScout][@1] | Allows Figura avatars to request a custom size with Pehkui. | &mdash; | `peh_reset` `peh_all` `peh_all_w` `peh_all_h` `peh_mdl` `peh_mdl_w` `peh_mdl_h` `peh_phys` `peh_phys_w` `peh_phys_h` `peh_bbox` `peh_bbox_w` `peh_bbox_h` `peh_eye_h` `peh_motion` `peh_reach` `peh_proj` `peh_drops` |
 
 ### Modules in Other Repositories
 
-| Module | Author | Description | Sent Messages | Received Messages |
+| Module | Author | Description | Received Messages | Sent Messages |
 |:-------|:-------|:------------|:--------------|:------------------|
-| There  | is     | nothing     | here          | yet!              |
+| [Clothier (Manic & Sanguine API)][>1] | [Sindercube][@2] | Allows Figura avatars to access the data from Manic and Sanguine, like the world's Blood Moon status or the player's Sanity value. | `clth_blood_moon` `clth_sanity` `clth_init` | &mdash; |
