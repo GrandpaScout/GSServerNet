@@ -33,9 +33,9 @@ Make sure to enable the datapack with the `/datapack enable` command in-game.
 
 ### Modules in This Directory
 
-| Module          | Author             | Description                                                 | Sent Messages                     | Received Messages |
-|:------------|---|:-------------------|:------------------------------------------------------------|:----------------------------------|:------------------|
-| [SVNPehkui][>1] | [GrandpaScout][@1] | Allows Figura avatars to request a custom size with Pehkui. | `pehscale` `pehhitbox` `pehreset` |                   |
+| Module          | Author             | Description                                                 | Sent Messages | Received Messages |
+|:----------------|:-------------------|:------------------------------------------------------------|:--------------|:------------------|
+| [SVNPehkui][>1] | [GrandpaScout][@1] | Allows Figura avatars to request a custom size with Pehkui. | `peh_reset` `peh_all` `peh_all_w` `peh_all_h` `peh_mdl` `peh_mdl_w` `peh_mdl_h` `peh_phys` `peh_phys_w` `peh_phys_h` `peh_bbox` `peh_bbox_w` `peh_bbox_h` `peh_eye_h` `peh_motion` `peh_reach` `peh_proj` `peh_drops` |                   |
 
 ### Modules in Other Repositories
 
